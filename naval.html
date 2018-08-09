@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>IF Battle</title>
+    <!-- <link rel="stylesheet" href="assets/css.css"> -->
+</head>
+
+<body onload="inicia()">
+    <div class="nickname_container" id="nick">
+
+        <h1>Bem-vindos ao BATALHA NAVAL</h1>
+        
+        <form id="player">
+            <span>Insira o nome do jogador:</span>
+            <input type="text" id="txtName" />
+            <button type="button" id="submit" onclick="cadastraPlayer('txtName')">OK</button>
+        </form>
+
+    </div>
+    
+
+
+
+
+
+
+    <!-- POSIÇÕES DOS NAVIOS E CHUTES -->
+    <div style="display: none" id="navios" class="chat">
+        
+        <h1>Se essa frase apareceu é porque deu certo.</h1>
+        <h2>O espaço maritmo está definido no quandrante 10 x 10 nesse jogo.</h2>
+        <div id>
+            <input type="text" id="txtPalpite" />
+            <button type="button" id="palpite" onclick="enviaPalpite('txtPalpite')">chute</button>
+        </div>
+    </div>
+    
+    
+   
+
+    
+    
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+    <script src="assets/client.js"></script>
+</body>
+
+</html>
