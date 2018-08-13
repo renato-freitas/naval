@@ -13,6 +13,6 @@ O sistema faz o match da partida setando dois a dois clientes.
 Quando um  cliente chuta um palpite, o sistema verifica se acertou ou erro o alvo
 emitindo um aviso para ambos jogadores da partida.
 
-
+Obs: O 'front-end' está dentro da pasta assets/.
 
 
