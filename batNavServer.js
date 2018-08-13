@@ -27,35 +27,47 @@ io.on("connection", function (client) {
         console.log("Joined: " + player_name);
 
         let id = client.id;
-
+        // console.log("[*** navios que voi do cliente]", navio1, navio2, navio3);
         clientes[id] = new Jogador(id, player_name, client, navio1, navio2, navio3);
+        
         let jogadorAtual = clientes[id]
+        console.log("[*** navios que voi do cliente]", 
+            jogadorAtual.navio1, 
+            jogadorAtual.navio2, 
+            jogadorAtual.navio3);
 
         if (fila == null)
             fila = jogadorAtual;
         else {
             fila.oponente = jogadorAtual;
             jogadorAtual.oponente = fila;
+            
+            console.log('[*** jogador,oponente]'
+                ,fila.nome, fila.oponente.nome);
+
             fila = null;
 
             jogadorAtual.client.emit("update", "Você não está sozinho. Aguarde a jogadao do oponente!", player_name);// servidor respondendo
             jogadorAtual.oponente.client.emit("update", "Você já pode iniciar a partida")
         }
+        
     })
 
     client.on("send", function (palpite) {
         let jogadorAtual = clientes[client.id];
         let oponente = jogadorAtual.oponente;
 
-        if (palpite === oponente.navio1) {
+        if (palpite == oponente.navio1) {
             oponente.navio1 = null;
+            console.log("[***]",palpite);
             jogadorAtual.client.emit("acertou", "Você acertou!");
             oponente.client.emit("oponente_acertou", "Oponente Acertou!");
-        } else if (palpite === oponente.navio2) {
+            
+        } else if (palpite == oponente.navio2) {
             oponente.navio2 = null;
             jogadorAtual.client.emit("acertou", "Você acertou!");
             oponente.client.emit("oponente_acertou", "Oponente Acertou!");
-        } else if (palpite === oponente.navio3) {
+        } else if (palpite == oponente.navio3) {
             oponente.navio3 = null;
             jogadorAtual.client.emit("acertou", "Você acertou!");
             oponente.client.emit("oponente_acertou", "Oponente Acertou!");
@@ -83,9 +95,7 @@ http.listen(3000, function () {
 
 
 
-function start() {
 
-}
 
 // https://tableless.com.br/criando-uma-aplicacao-de-chat-simples-com-nodejs-e-socket-io/
 // https://github.com/dericeira/Simple-Chat-Socket.io/blob/master/app.js

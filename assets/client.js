@@ -3,6 +3,7 @@ let ready;
 let player = {};
 let navio1, navio2, navio3;
 
+// setNavios();
 
 function inicia() {
     socket = io.connect("http://localhost:3000");
@@ -13,6 +14,24 @@ function inicia() {
             $('#navios').append('<li>' + msg + '</li>');
         }
     });
+
+    socket.on("acertou", function(msg){
+        $('#acertou').html(msg);
+    });
+
+    socket.on("oponente_acertou", function(msg){
+        $('#acertou').html(msg);
+    });
+
+    socket.on("errou", function(msg){
+        $('#acertou').html(msg);
+    });
+
+    socket.on("oponente_errou", function(msg){
+        $('#acertou').html(msg);
+    });
+    
+    
 }
 
 function cadastraPlayer(txtName) {
@@ -23,14 +42,18 @@ function cadastraPlayer(txtName) {
 
     ready = true;
     defineNavios(player_name);
-    socket.emit("join", player_name, navio1, navio2. navio3);
+    socket.emit("join", player.nome, player.nav1,player.nav2,player.nav3);//, navio1, navio2. navio3);
+
 }
 
 
 function enviaPalpite(elemento) {
     let palpite = document.getElementById(elemento).value;
-    socket.emit("send", player.nome, palpite);
+    socket.emit("send", palpite);
 }
+
+
+
 
 function getNumber0_9() {
     return Math.floor((Math.random() * 10));
@@ -47,7 +70,6 @@ function setNavios() {
         navio2 = n - 2;
         navio3 = n;
     }
-
     navio1 += getNumber0_9().toString();
     navio2 += getNumber0_9().toString();
     navio3 += getNumber0_9().toString();
